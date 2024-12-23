@@ -4,6 +4,7 @@ import {ToonMetadata} from "../types/ToonMetadata"
 export class TaskHubConnector {
 
     static taskHubUrl = "http://34.145.13.149:3024";
+    // static taskHubUrl = "http://localhost:3000";
     TASK_ROUTE = "/metadata"
     UPDATE_ROUTE = "update"
     GET_ROOM_ROUTE = "getAllInRoom"
@@ -43,14 +44,19 @@ export class TaskHubConnector {
         requestHeaders.set('Accept', 'application/json');
         requestHeaders.append('Content-Type', 'application/json');
 
-        const requestInit: any = {
-            headers: requestHeaders,
-            method: method,
-            mode: "no-cors",
-        }
+        let requestInit: any;
 
         if (body) {
-            requestInit.body = JSON.stringify(body)
+            requestInit = {
+                headers: requestHeaders,
+                method: method,
+                body: JSON.stringify(body)
+            }
+        } else {
+            requestInit = {
+                headers: requestHeaders,
+                method: method,
+            }
         }
 
         console.log(JSON.stringify(requestInit));
