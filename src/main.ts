@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import started from 'electron-squirrel-startup';
-// import AppUpdater from "./adapters/AppUpdater";
+import AppUpdater from "./adapters/AppUpdater";
 import {updateElectronApp} from "update-electron-app";
 
 
@@ -30,8 +30,8 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
-  // new AppUpdater(); // Enable auto-updater
-  updateElectronApp();
+  new AppUpdater(); // Enable auto-updater
+  // updateElectronApp();
 
   // Open the DevTools.
   if (process.env.NODE_ENV === 'development') {
