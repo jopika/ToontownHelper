@@ -27,12 +27,12 @@
  */
 
 import './index.css';
-import {ToonTownConnector} from "./adapters/ToonTownConnector";
+import {ToontownConnector} from "./adapters/ToontownConnector";
 
 console.log('👋 This message is being logged by "renderer.ts", included via Vite');
 console.log("test test in Renderer");
 
 console.log("About to start Toontown Connection")
-const toonTownConnector = new ToonTownConnector();
+const toonTownConnector = new ToontownConnector();
 
 toonTownConnector.startConnection()

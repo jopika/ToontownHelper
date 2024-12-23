@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import started from 'electron-squirrel-startup';
-import { ToonTownConnector } from './adapters/ToonTownConnector';
+import { ToontownConnector } from './adapters/ToontownConnector';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
