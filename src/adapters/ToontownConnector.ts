@@ -13,6 +13,17 @@ export class ToontownConnector {
     USER_AGENT = "ToonTownLocalHelper"
     AUTH_STRING_START = "local-helper-"
 
+    static #instance: ToontownConnector;
+
+    public static getInstance(): ToontownConnector {
+        if (!ToontownConnector.#instance) {
+            ToontownConnector.#instance = new ToontownConnector();
+            ToontownConnector.#instance.startConnection();
+        }
+
+        return ToontownConnector.#instance;
+    }
+
     public startConnection() {
         console.log("In method here");
 
@@ -38,7 +49,7 @@ export class ToontownConnector {
         }).catch(error => {
             console.error(error);
         }).finally(() => {
-            console.log("Complete");
+            // console.log("Complete");
         });
     }
 }
