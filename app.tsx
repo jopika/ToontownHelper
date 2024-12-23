@@ -37,10 +37,12 @@ export default function App() {
         setDataUp([response]);
 
         // then, join room
-        taskHubConnector.joinRoom(sessionId, response).then(data => {
-          let otherInfoResponses = data.map(d => d.metadata);
-          setDataUp([response, ...otherInfoResponses]);
-        });
+        if (sessionId != undefined && sessionId != "") {
+          taskHubConnector.joinRoom(sessionId, response).then(data => {
+            let otherInfoResponses = data.map(d => d.metadata);
+            setDataUp([response, ...otherInfoResponses]);
+          });
+        }
       })
     }
     
@@ -51,7 +53,7 @@ export default function App() {
       let button = document.getElementById("joinSession");
       button.onclick = () => {
         let sessionId = (document.getElementById("session") as HTMLInputElement).value;
-        setSessionId(sessionId);
+        setSessionId(sessionId.trim());
         // todo it would be better if this updated right away... maybe I can just call this once?
         retrieveToonData()
       }
