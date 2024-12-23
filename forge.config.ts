@@ -49,6 +49,20 @@ const config: ForgeConfig = {
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
   ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        repository: {
+          owner: 'jopika',
+          name: 'ToontownHelper'
+        },
+        prerelease: true,
+        force: true,
+        generateReleaseNotes: true,
+      }
+    }
+  ]
 };
 
 export default config;

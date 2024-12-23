@@ -1,7 +1,9 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import started from 'electron-squirrel-startup';
-import { ToontownConnector } from './adapters/ToontownConnector';
+// import AppUpdater from "./adapters/AppUpdater";
+import {updateElectronApp} from "update-electron-app";
+
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -25,8 +27,13 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
+  // new AppUpdater(); // Enable auto-updater
+  updateElectronApp();
+
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.webContents.openDevTools();
+  }
 };
 
 // This method will be called when Electron has finished
