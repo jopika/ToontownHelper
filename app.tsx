@@ -8,7 +8,7 @@ import { TaskHubConnector } from "./src/adapters/TaskHubConnector";
 import { session } from 'electron';
 
 
-export type TaskProps = {taskType: string, text: string, where: string, progressText: string, progressCurrent: number, progressTarget: number, reward: string}
+export type TaskProps = {taskType: string, text: string, where: string[], progressText: string, progressCurrent: number, progressTarget: number, reward: string}
 
 const domNode = document.getElementById('display');
 const root = createRoot(domNode);
@@ -106,16 +106,30 @@ export default function App() {
         }
 
         let newText = objectiveWords.slice(1).join(" ");
-        newText = newText[0].toUpperCase() + newText.slice(1);
+        if (newText.length > 0) {
+          newText = newText[0].toUpperCase() + newText.slice(1);
+        }
         
+        let progTarget = task.objective.progress.target;
+        let progCurrent = task.objective.progress.current;
+        if (progTarget == -1) {
+          progTarget = undefined;
+          progCurrent = undefined;
+        }
+
+        let location = [task.objective.where];
+        if (taskType == "VISIT") {
+          newText = task.to.name;
+          location = [task.to.building, task.to.neighborhood,  task.to.zone];
+        }
 
         let taskParsed: TaskProps = {
           taskType: taskType,
           text: newText,
-          where: task.objective.where,
+          where: location,
           progressText: task.objective.progress.text,
-          progressCurrent: task.objective.progress.current,
-          progressTarget: task.objective.progress.target,
+          progressCurrent: progCurrent,
+          progressTarget: progTarget,
           reward: task.reward
         }
         tasksParsed.push(taskParsed);

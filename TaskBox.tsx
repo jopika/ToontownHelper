@@ -14,6 +14,8 @@ export default function Task(props: TaskProps) {
     const [hovered, setHovered] = useState(false);
     const toggleHover = () => setHovered(!hovered);
  
+    let wheres = where.map(w => (<div key={w}>{w}</div>))
+
     return (
         <div key={text + where}
         className="taskbox" 
@@ -22,11 +24,12 @@ export default function Task(props: TaskProps) {
             <div className="type">{taskType}</div>
             <div className="icon"></div>
             <div className="goal">{text}</div>
-            <div className="where">{where}</div>
+            <div className="where">{wheres}</div>
+            {progressTarget != undefined &&            
             <div className="progress">
             <span className="progressText">{progressCurrent} of {progressTarget}</span>
             <progress value={progressCurrent} max={progressTarget}></progress>
-            </div>
+            </div>}
             <div className="reward" style={{visibility:`${hovered ? "visible" : "hidden"}`}}>Reward: {reward}</div>
         </div>
 
