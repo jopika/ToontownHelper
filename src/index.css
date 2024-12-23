@@ -10,20 +10,135 @@ body {
 .toonInfo {
   border: 1px solid rgb(226, 182, 20);
   margin: 1rem;
-  padding: 2rem 2rem;
+  /* padding: 2rem 2rem; */
   text-align: center;
 }
 
-.tasks {
+.taskGroup {
   border: 1px solid black;
   margin: 1rem;
-  padding: 2rem 2rem;
+  /* padding: 2rem 2rem; */
   text-align: center;
 }
 
+@font-face {
+  font-family: 'Impress BT';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Impress BT'), url('../assets/impress-bt-58d9dc6098a03.woff') format('woff');
+  }
+
+
+@font-face {
+  font-family: 'Minnie';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Minnie'), url('../assets/Minnie.TTF') format('truetype');
+  }
+
 .taskbox {
-  display: inline-block;
-  border: 1px solid red;
-  padding: 1rem 1rem 1rem 1rem;
+  display: inline-block;;
   vertical-align: middle;
+  background-image: url("../assets/blank_parchment.png");
+  width:300px;
+  height:200px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  font-family: 'Impress BT';
+  position: relative;
+  text-align:center;
+  text-align: center;
+}
+
+.type {
+  font-family: "Minnie";
+  position: absolute;
+  top: 10%;
+  transform: translateY(-50%);
+  text-align: center;
+  width: 100%;
+  margin: auto;
+}
+
+.icon {
+  position: absolute;
+  top: 17%;
+  /* transform: translateY(-50%); */
+  transform: translateX(-50%);
+  /* text-align: center; */
+  /* width: 100%; */
+  /* margin: 0 auto; */
+  left: 50%;
+
+  width:40px;
+  height: 40px;
+  /* background-color: rgb(255, 209, 209); */
+  border: 3px;
+  border-color: black;
+  box-shadow: rgba(0, 0, 0, 0.45) 1px 1px 20px 0px inset;
+  border-radius: 5px;
+}
+
+.goal {
+  position: absolute;
+  top: 43%;
+  transform: translateY(-50%);
+  text-align: center;
+  width: 100%;
+  margin: auto;
+}
+
+.where {
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  text-align: center;
+   width: 100%;
+  margin: auto;
+}
+
+.progress {
+  position: absolute;
+  top: 75%;
+  transform: translateY(-50%);
+  text-align: center;
+  width: 100%;
+  margin: auto;
+}
+
+.progressText {
+  position: absolute;
+  display: inline-block;
+  text-align: center;
+  margin: auto;
+  width:50%
+}
+
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: transparent;
+  border-radius: 2px;
+  box-shadow: rgb(104, 101, 89) 1.6px 1.6px 2px 0px inset, rgb(255, 255, 255) -1.6px -1.6px 2px 0px inset;
+}
+
+
+progress[value]::-webkit-progress-value {
+  background-color: green;
+    border-radius: 2px; 
+    background-size: 35px 20px, 100% 100%, 100% 100%;
+  box-shadow: rgb(104, 101, 89) 1.6px 1.6px 2px 0px inset, rgb(255, 255, 255) 0px -1.6px 2px 0px inset;
+
+}
+
+.reward {
+  position: absolute;
+  bottom: 5%;
+  transform: translateY(-50%);
+  left: 7%;
+  color:red;
+  font-size: medium;
 }

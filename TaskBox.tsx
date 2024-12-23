@@ -1,4 +1,4 @@
-import { TaskProps, TaskType } from "./app";
+import { TaskProps, TaskType, taskTypeToString } from "./app";
 
 export default function Task(props: TaskProps) {
     let { taskType, 
@@ -6,16 +6,23 @@ export default function Task(props: TaskProps) {
         where,
         progressText,
         progressCurrent,
-        progressTarget
+        progressTarget,
+        reward
     } = props;
 
  
     return (
         <div key={text + where}
-        className="taskbox"
-        style={{border: `1px solid "#000000`}}>
-            {text}<br/>
-            {where}<br/>
+        className="taskbox">
+            <div className="type">{taskTypeToString(taskType)}</div>
+            <div className="icon"></div>
+            <div className="goal">{text}</div>
+            <div className="where">{where}</div>
+            <div className="progress">
+            <span className="progressText">{progressCurrent} of {progressTarget}</span>
+            <progress value={progressCurrent} max={progressTarget}></progress>
+            </div>
+            <div className="reward">Reward: {reward}</div>
         </div>
 
     //       style={{
