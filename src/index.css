@@ -1,5 +1,5 @@
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+  font-family: 'VTRemington', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
     Arial, sans-serif;
   margin: auto;
   /* max-width: 38rem; */
@@ -91,6 +91,13 @@ button:hover {
   font-style: normal;
   font-weight: normal;
   src: local('Minnie'), url('../assets/Minnie.TTF') format('truetype');
+  }
+
+@font-face {
+  font-family: 'VTRemington';
+  font-style: normal;
+  font-weight: normal;
+  src: local('vtRemingtonPortal'), url('../assets/vtRemingtonPortable.ttf') format('truetype');
   }
 
 .taskbox {
