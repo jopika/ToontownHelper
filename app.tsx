@@ -6,6 +6,7 @@ import { ToontownConnector } from './src/adapters/ToontownConnector';
 import { useEffect, useRef, useState } from 'react';
 import { TaskHubConnector } from "./src/adapters/TaskHubConnector";
 import { session } from 'electron';
+import VersionBanner from "./src/components/VersionBanner";
 
 
 export type TaskProps = {taskType: string, text: string, where: string[], progressText: string, progressCurrent: number, progressTarget: number, reward: string}
@@ -23,7 +24,6 @@ const taskHubConnector = TaskHubConnector.getTaskHubConnector();
 
 root.render(<App/>)
 
-
 export default function App() {
   
     let data: InfoResponse[] = [];
@@ -38,10 +38,7 @@ export default function App() {
     let retrieveToonData = (sid?: string) => {
       toonTownConnector.getToonData().then((response) => {
         // TODO - is this the right way to update...?
-        console.log(response);
-
         // then, join room
-        console.log(sessionId);
         if (sessionId != undefined && sessionId != "") {
           taskHubConnector.joinRoom(sessionId, response).then(data => {
             let otherInfoResponses = data.map(d => d.metadata);
@@ -142,16 +139,17 @@ export default function App() {
       
       return (<ToonLayout key={info.toon.id} name={toonName} colour={info.toon.headColor} tasks={tasksParsed}/>);
     });
-    
+
     console.log(toons)
 
     let success = (<div>
     <p>Please enter your session id: <input id="session" type="text"/><button onClick={buttonOnClick}>Join!</button></p>
     <p></p>
     <div>{toons}</div>
+      <VersionBanner />
     </div>);
 
-    let failure = (<div id="pleaseopen">No toons detected! Please connect to Toontown first. Make sure to allow Companion App Support in Options, then accept the connection.</div>)
+  let failure = (<div><div id="pleaseopen">No toons detected! Please connect to Toontown first. Make sure to allow Companion App Support in Options, then accept the connection.</div><VersionBanner /></div>)
 
     return toons.length > 0 ? success : failure;
 }
