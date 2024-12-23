@@ -27,18 +27,25 @@ export default function App() {
   
     let data: InfoResponse[] = [];
     let [dataUp, setDataUp] = useState(data);
-    let _sessionId: string;
+    let _sessionId: string = '';
     let [sessionId, setSessionId] = useState(_sessionId);
 
-    let retrieveToonData = () => {
+    let retrieveToonData = (sid?: string) => {
       toonTownConnector.getToonData().then((response) => {
         // TODO - is this the right way to update...?
         console.log(response);
         setDataUp([response]);
 
         // then, join room
+        console.log(sessionId);
         if (sessionId != undefined && sessionId != "") {
           taskHubConnector.joinRoom(sessionId, response).then(data => {
+            let otherInfoResponses = data.map(d => d.metadata);
+            setDataUp([response, ...otherInfoResponses]);
+          });
+          // we can also fall back on sid
+        } else if (sid != undefined && sid != "") {
+          taskHubConnector.joinRoom(sid, response).then(data => {
             let otherInfoResponses = data.map(d => d.metadata);
             setDataUp([response, ...otherInfoResponses]);
           });
@@ -46,20 +53,19 @@ export default function App() {
       })
     }
     
+    let buttonOnClick = () => {
+      let sid = (document.getElementById("session") as HTMLInputElement).value;
+      setSessionId(s => sid.trim());
+      console.log(sid);
+      console.log(sessionId);
+      retrieveToonData(sid);
+    }
+
     useEffect(() => {
       const interval = setInterval(retrieveToonData, 10000);
 
-      console.log("setting onclick!")
-      let button = document.getElementById("joinSession");
-      button.onclick = () => {
-        let sessionId = (document.getElementById("session") as HTMLInputElement).value;
-        setSessionId(sessionId.trim());
-        // todo it would be better if this updated right away... maybe I can just call this once?
-        retrieveToonData()
-      }
+      retrieveToonData();
       
-      retrieveToonData()
-
       return () => {
         clearInterval(interval);
       };
@@ -104,5 +110,10 @@ export default function App() {
     });
     
     console.log(toons)
-    return (<div> {toons} </div>);
+
+    return (<div>
+      <p>Please enter your session id: <input id="session" type="text"/><button onClick={buttonOnClick}>Join!</button></p>
+      <p></p>
+      <div>{toons}</div>
+      </div>);
 }
