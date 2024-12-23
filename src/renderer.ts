@@ -35,4 +35,22 @@ console.log("test test in Renderer");
 console.log("About to start Toontown Connection")
 const toonTownConnector = new ToontownConnector();
 
-toonTownConnector.startConnection()
+toonTownConnector.startConnection();
+
+/**
+ * Small example to retrieve toon data on a regular basis (10 seconds)
+ */
+function setupDataRetrieval() {
+    function retrieveToonData() {
+        toonTownConnector.getToonData().then((data) => {
+            console.log(`Current location: ${data.location.zone} @ ${data.location.neighborhood} in ${data.location.district}`);
+        });
+    }
+
+    setInterval(retrieveToonData, 10000);
+}
+
+setupDataRetrieval();
+/**
+ * End Example
+ */
