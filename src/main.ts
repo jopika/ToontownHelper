@@ -11,7 +11,7 @@ if (started) {
 }
 
 // run this as early in the main process as possible
-if (require('electron-squirrel-startup')) app.quit();
+// if (require('electron-squirrel-startup')) app.quit();
 
 const createWindow = () => {
   // Create the browser window.
