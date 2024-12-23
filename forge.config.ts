@@ -12,6 +12,7 @@ const config: ForgeConfig = {
     executableName: "ToontownHelper",
     asar: true,
   },
+  buildIdentifier: 'ToontownHelper-build', //https://it-jm.tistory.com/187
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [
