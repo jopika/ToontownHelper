@@ -1,4 +1,4 @@
-import { TaskProps, TaskType, taskTypeToString } from "./app";
+import { TaskProps } from "./app";
 
 export default function Task(props: TaskProps) {
     let { taskType, 
@@ -14,7 +14,7 @@ export default function Task(props: TaskProps) {
     return (
         <div key={text + where}
         className="taskbox">
-            <div className="type">{taskTypeToString(taskType)}</div>
+            <div className="type">{taskType}</div>
             <div className="icon"></div>
             <div className="goal">{text}</div>
             <div className="where">{where}</div>

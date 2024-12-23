@@ -3,35 +3,10 @@ import Task from './TaskBox';
 import ToonLayout from './ToonLayout';
 import { InfoResponse, TaskData, TaskObjective } from './src/types/InfoResponse';
 import { ToontownConnector } from './src/adapters/ToontownConnector';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export enum TaskType {
-  DEFEAT,
-  WANTED,
-  RECOVER,
-  GOFISHING,
-  DELIVER,
-  VISIT
-}
 
-export function taskTypeToString(task: TaskType) {
-  switch (task) {
-    case TaskType.DEFEAT:
-      return "DEFEAT";
-    case TaskType.WANTED:
-      return "WANTED";
-    case TaskType.RECOVER:
-      return "RECOVER";
-    case TaskType.GOFISHING:
-      return "GO FISHING";
-    case TaskType.DELIVER:
-      return "DELIVER";
-    case TaskType.VISIT:
-      return "VISIT";
-  }
-}
-
-export type TaskProps = {taskType: TaskType, text: string, where: string, progressText: string, progressCurrent: number, progressTarget: number, reward: string}
+export type TaskProps = {taskType: string, text: string, where: string, progressText: string, progressCurrent: number, progressTarget: number, reward: string}
 
 const domNode = document.getElementById('display');
 const root = createRoot(domNode);
@@ -44,26 +19,41 @@ toonTownConnector.startConnection();
 
 root.render(<App/>)
 
+// function setupDataRetrieval() {
+//   function retrieveToonData(setDataUp) {
+//       toonTownConnector.getToonData().then((response) => {
+//         // TODO - is this the right way to update...?
+//         console.log(response);
+//         setDataUp([response]);
+//       });
+//   }
+
+//   setInterval(retrieveToonData, 10000);
+// }
+
+// setupDataRetrieval();
+
 
 export default function App() {
   
     let data: InfoResponse[] = [];
     let [dataUp, setDataUp] = useState(data);
-
-    function setupDataRetrieval() {
-        function retrieveToonData() {
-            toonTownConnector.getToonData().then((response) => {
-              // TODO - is this the right way to update...?
-              console.log(response);
-              setDataUp([response]);
-            });
-        }
-
-        setInterval(retrieveToonData, 10000);
-    }
-
-    setupDataRetrieval();
     
+    useEffect(() => {
+      const interval = setInterval(function retrieveToonData() {
+        toonTownConnector.getToonData().then((response) => {
+          // TODO - is this the right way to update...?
+          console.log(response);
+          setDataUp([response]);
+        });
+    }, 10000);
+      
+      return () => {
+        clearInterval(interval);
+      };
+    }, []);
+
+
     let toons = dataUp.map(info => {
       let toonName = info.toon.name;
       let tasks: TaskData[] = info.tasks;
@@ -71,21 +61,15 @@ export default function App() {
       let tasksParsed: TaskProps[] = [];
       
       for (let task of tasks) {
-        let taskType = TaskType.DEFEAT;
-
         let objectiveWords = task.objective.text.split(" ");
-      
-        switch (objectiveWords[0]) {
-          case "Defeat":
+        let taskType = objectiveWords[0].toUpperCase();
+        
+        if (objectiveWords[0] == "Defeat") {
             if (isNaN(Number(objectiveWords[1]))) {
-              taskType = TaskType.DEFEAT;
+              taskType = "DEFEAT";
             } else {
-              taskType = TaskType.WANTED;
+              taskType = "WANTED";
             }
-            break;
-          case "Visit": 
-            taskType = TaskType.VISIT;
-            break;
         }
 
         let newText = objectiveWords.slice(1).join(" ");
