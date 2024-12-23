@@ -39,7 +39,6 @@ export default function App() {
       toonTownConnector.getToonData().then((response) => {
         // TODO - is this the right way to update...?
         console.log(response);
-        setDataUp([response]);
 
         // then, join room
         console.log(sessionId);
@@ -54,6 +53,8 @@ export default function App() {
             let otherInfoResponses = data.map(d => d.metadata);
             setDataUp([response, ...otherInfoResponses]);
           });
+        } else {
+          setDataUp([response]);
         }
       })
     }
