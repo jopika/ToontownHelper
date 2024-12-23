@@ -1,8 +1,9 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
 import started from 'electron-squirrel-startup';
-import AppUpdater from "./adapters/AppUpdater";
+// import VersionManager from "./adapters/VersionManager";
 import {updateElectronApp} from "update-electron-app";
+import log from 'electron-log/main';
 
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -30,8 +31,11 @@ const createWindow = () => {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`));
   }
 
-  new AppUpdater(); // Enable auto-updater
-  // updateElectronApp();
+  // new VersionManager(); // Enable auto-updater
+  log.transports.file.level = "debug";
+  updateElectronApp({
+    logger: log
+  });
 
   // Open the DevTools.
   if (process.env.NODE_ENV === 'development') {
