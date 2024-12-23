@@ -9,7 +9,7 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 import {ForgePackagerOptions} from "@electron-forge/shared-types/src";
 
 const packagingConfiguration: ForgePackagerOptions = {
-  executableName: "ToontownHelper",
+  executableName: "toontownhelper",
   asar: true,
 };
 
