@@ -4,7 +4,7 @@ import ToonLayout from './ToonLayout';
 import { InfoResponse, TaskData, TaskObjective } from './src/types/InfoResponse';
 import { ToontownConnector } from './src/adapters/ToontownConnector';
 import { useEffect, useState } from 'react';
-import {TaskHubConnector} from "./src/adapters/TaskHubConnector";
+import { TaskHubConnector } from "./src/adapters/TaskHubConnector";
 
 
 export type TaskProps = {taskType: string, text: string, where: string, progressText: string, progressCurrent: number, progressTarget: number, reward: string}
@@ -18,37 +18,46 @@ const toonTownConnector = new ToontownConnector();
 
 toonTownConnector.startConnection();
 
+const taskHubConnector = TaskHubConnector.getTaskHubConnector();
+
 root.render(<App/>)
-
-// function setupDataRetrieval() {
-//   function retrieveToonData(setDataUp) {
-//       toonTownConnector.getToonData().then((response) => {
-//         // TODO - is this the right way to update...?
-//         console.log(response);
-//         setDataUp([response]);
-//       });
-//   }
-
-//   setInterval(retrieveToonData, 10000);
-// }
-
-// setupDataRetrieval();
 
 
 export default function App() {
   
     let data: InfoResponse[] = [];
     let [dataUp, setDataUp] = useState(data);
+    let _sessionId: string;
+    let [sessionId, setSessionId] = useState(_sessionId);
+
+    let retrieveToonData = () => {
+      toonTownConnector.getToonData().then((response) => {
+        // TODO - is this the right way to update...?
+        console.log(response);
+        setDataUp([response]);
+
+        // then, join room
+        taskHubConnector.joinRoom(sessionId, response).then(data => {
+          let otherInfoResponses = data.map(d => d.metadata);
+          setDataUp([response, ...otherInfoResponses]);
+        });
+      })
+    }
     
     useEffect(() => {
-      const interval = setInterval(function retrieveToonData() {
-        toonTownConnector.getToonData().then((response) => {
-          // TODO - is this the right way to update...?
-          console.log(response);
-          setDataUp([response]);
-        });
-    }, 10000);
+      const interval = setInterval(retrieveToonData, 10000);
+
+      console.log("setting onclick!")
+      let button = document.getElementById("joinSession");
+      button.onclick = () => {
+        let sessionId = (document.getElementById("session") as HTMLInputElement).value;
+        setSessionId(sessionId);
+        // todo it would be better if this updated right away... maybe I can just call this once?
+        retrieveToonData()
+      }
       
+      retrieveToonData()
+
       return () => {
         clearInterval(interval);
       };

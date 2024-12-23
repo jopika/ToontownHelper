@@ -14,7 +14,7 @@ export class TaskHubConnector {
         console.log("Setting up TaskHubConnector");
     }
 
-    public getTaskHubConnector() {
+    public static getTaskHubConnector() {
         if (!TaskHubConnector.#instance) {
             TaskHubConnector.#instance = new TaskHubConnector();
         }
