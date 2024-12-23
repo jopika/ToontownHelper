@@ -88,7 +88,7 @@ export default function App() {
         tasksParsed.push(taskParsed);
       }
       
-      return (<ToonLayout key={info.toon.id} name={toonName} tasks={tasksParsed}/>);
+      return (<ToonLayout key={info.toon.id} name={toonName} colour={info.toon.headColor} tasks={tasksParsed}/>);
     });
     
     console.log(toons)

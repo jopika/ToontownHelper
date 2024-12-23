@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { TaskProps } from "./app";
 
 export default function Task(props: TaskProps) {
@@ -9,11 +10,15 @@ export default function Task(props: TaskProps) {
         progressTarget,
         reward
     } = props;
-
+    
+    const [hovered, setHovered] = useState(false);
+    const toggleHover = () => setHovered(!hovered);
  
     return (
         <div key={text + where}
-        className="taskbox">
+        className="taskbox" 
+        onMouseEnter={toggleHover}
+        onMouseLeave={toggleHover}>
             <div className="type">{taskType}</div>
             <div className="icon"></div>
             <div className="goal">{text}</div>
@@ -22,7 +27,7 @@ export default function Task(props: TaskProps) {
             <span className="progressText">{progressCurrent} of {progressTarget}</span>
             <progress value={progressCurrent} max={progressTarget}></progress>
             </div>
-            <div className="reward">Reward: {reward}</div>
+            <div className="reward" style={{visibility:`${hovered ? "visible" : "hidden"}`}}>Reward: {reward}</div>
         </div>
 
     //       style={{

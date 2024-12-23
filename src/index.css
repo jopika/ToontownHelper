@@ -9,14 +9,21 @@ body {
 
 .toonInfo {
   border: 1px solid rgb(226, 182, 20);
-  margin: 1rem;
-  /* padding: 2rem 2rem; */
+  /* margin: 1rem; */
+  padding: 1rem 1rem;
   text-align: center;
 }
 
+.toonName {
+  font-size: xx-large;
+  font-family: 'Impress BT';
+  color: white;
+  text-shadow:  black 2px 2px;
+}
+
 .taskGroup {
-  border: 1px solid black;
-  margin: 1rem;
+  /* border: 1px solid black; */
+  /* margin: 1rem; */
   /* padding: 2rem 2rem; */
   text-align: center;
 }
@@ -39,21 +46,28 @@ body {
 .taskbox {
   display: inline-block;;
   vertical-align: middle;
-  background-image: url("../assets/blank_parchment.png");
+  background-image: url("../assets/scroll_reg.png");
   width:300px;
-  height:200px;
+  height:220px;
   background-size: contain;
   background-repeat: no-repeat;
   font-family: 'Impress BT';
   position: relative;
   text-align:center;
   text-align: center;
+
+  
+  &:hover {
+    background-image: url("../assets/scroll_long.png");
+  /* transform: scale(1.5); */
 }
+}
+
 
 .type {
   font-family: "Minnie";
   position: absolute;
-  top: 10%;
+  top: 8%;
   transform: translateY(-50%);
   text-align: center;
   width: 100%;
@@ -62,7 +76,7 @@ body {
 
 .icon {
   position: absolute;
-  top: 17%;
+  top: 14%;
   /* transform: translateY(-50%); */
   transform: translateX(-50%);
   /* text-align: center; */
@@ -70,8 +84,8 @@ body {
   /* margin: 0 auto; */
   left: 50%;
 
-  width:40px;
-  height: 40px;
+  width:45px;
+  height: 45px;
   /* background-color: rgb(255, 209, 209); */
   border: 3px;
   border-color: black;
@@ -81,7 +95,7 @@ body {
 
 .goal {
   position: absolute;
-  top: 43%;
+  top: 40%;
   transform: translateY(-50%);
   text-align: center;
   width: 100%;
@@ -90,7 +104,7 @@ body {
 
 .where {
   position: absolute;
-  top: 60%;
+  top: 55%;
   transform: translateY(-50%);
   text-align: center;
    width: 100%;
@@ -99,7 +113,7 @@ body {
 
 .progress {
   position: absolute;
-  top: 75%;
+  top: 73%;
   transform: translateY(-50%);
   text-align: center;
   width: 100%;
@@ -136,9 +150,9 @@ progress[value]::-webkit-progress-value {
 
 .reward {
   position: absolute;
-  bottom: 5%;
+  bottom: 4%;
   transform: translateY(-50%);
   left: 7%;
-  color:red;
+  color:orangered;
   font-size: medium;
 }
