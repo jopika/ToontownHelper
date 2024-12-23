@@ -57,7 +57,9 @@ const config: ForgeConfig = {
           owner: 'jopika',
           name: 'ToontownHelper'
         },
-        prerelease: true
+        prerelease: true,
+        force: true,
+        generateReleaseNotes: true,
       }
     }
   ]
