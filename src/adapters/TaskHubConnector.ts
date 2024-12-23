@@ -3,10 +3,10 @@ import {ToonMetadata} from "../types/ToonMetadata"
 
 export class TaskHubConnector {
 
-    static taskHubUrl = "localhost:3000";
+    static taskHubUrl = "http://34.145.13.149:3024";
     TASK_ROUTE = "/metadata"
     UPDATE_ROUTE = "update"
-    GET_ROOM_ROUTE = "/getAllInRoom"
+    GET_ROOM_ROUTE = "getAllInRoom"
     static #instance: TaskHubConnector;
     // private toonTownConnector: ToontownConnector;
 
@@ -23,7 +23,11 @@ export class TaskHubConnector {
     }
 
     public async joinRoom(roomId: string, toonMetadata: InfoResponse): Promise<ToonMetadata[]> {
-        const response = await this.callEndpoint("POST", `${this.UPDATE_ROUTE}`, toonMetadata);
+        const body = {
+            roomId: roomId,
+            metadata: toonMetadata,
+        }
+        const response = await this.callEndpoint("POST", `${this.UPDATE_ROUTE}`, body);
 
         return response.filter(toonData => toonData.metadata.toon.id !== toonMetadata.toon.id);
     }
@@ -42,6 +46,7 @@ export class TaskHubConnector {
         const requestInit: any = {
             headers: requestHeaders,
             method: method,
+            mode: "no-cors",
         }
 
         if (body) {
