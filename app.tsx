@@ -127,7 +127,6 @@ export default function App() {
 
     return (<div>
       <p>Please enter your session id: <input id="session" type="text"/><button onClick={buttonOnClick}>Join!</button></p>
-      {sessionId}
       <p></p>
       <div>{toons}</div>
       </div>);
