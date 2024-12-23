@@ -1,6 +1,9 @@
 import { createRoot } from 'react-dom/client';
 import Task from './TaskBox';
 import ToonLayout from './ToonLayout';
+import { InfoResponse, TaskData, TaskObjective } from './src/types/InfoResponse';
+import { ToontownConnector } from './src/adapters/ToontownConnector';
+import { useState } from 'react';
 
 export enum TaskType {
   DEFEAT,
@@ -12,36 +15,57 @@ export enum TaskType {
 
 export type TaskProps = {taskType: TaskType, text: string, where: string, progressText: string, progressCurrent: number, progressTarget: number}
 
-const domNode = document.getElementById('navigation');
+const domNode = document.getElementById('display');
 const root = createRoot(domNode);
 // root.render(<Task taskType={TaskType.DELIVER} text={"DO THIS!"} where="" progressText={''} progressCurrent={0} progressTarget={0} />);
 
+console.log("About to start Toontown Connection")
+const toonTownConnector = new ToontownConnector();
 
+toonTownConnector.startConnection();
 
-root.render(<ToonLayout name="Marigold" tasks={[{
-  taskType: TaskType.DELIVER, "text": "DO THIS!", where:"", progressText:"", progressCurrent: undefined, progressTarget: undefined},
-  {taskType: TaskType.DELIVER, "text": "DO THIS2!", where:"", progressText:"", progressCurrent: undefined, progressTarget: undefined}]}/>)
+root.render(<App/>)
 
+export default function App() {
+  
+    let data: InfoResponse[] = [];
+    let [dataUp, setDataUp] = useState(data);
 
-  export default function App(props: {jsonObj: string}) {
-  let { jsonObj } = props;
+    function setupDataRetrieval() {
+        function retrieveToonData() {
+            toonTownConnector.getToonData().then((response) => {
+              // TODO - is this the right way to update...?
+              console.log(response);
+              setDataUp([response]);
+            });
+        }
 
-  let obj = JSON.parse(jsonObj);
-  let toonName = obj["toon"]["name"];
-  let tasks: { [key: string]: any[] }[] = obj["tasks"];
-
-  let tasksParsed: TaskProps[] = [];
-  for (let task in tasks) {
-    let taskParsed: TaskProps = {
-      taskType: TaskType.DEFEAT,
-      text: task["objective"]["text"],
-      where: task["objective"]["where"],
-      progressText: task["objective"]["progress"]["text"],
-      progressCurrent: task["objective"]["progress"]["current"],
-      progressTarget: task["objective"]["progress"]["target"]
+        setInterval(retrieveToonData, 10000);
     }
-    tasksParsed.push(taskParsed);
-  }
 
-  return (<ToonLayout name={toonName} tasks={tasksParsed}/>)
+    setupDataRetrieval();
+
+    let toons = dataUp.map(info => {
+      let toonName = info.toon.name;
+      let tasks: TaskData[] = info.tasks;
+  
+      let tasksParsed: TaskProps[] = [];
+      for (let task of tasks) {
+  
+        let taskParsed: TaskProps = {
+          taskType: TaskType.DEFEAT,
+          text: task.objective.text,
+          where: task.objective.where,
+          progressText: task.objective.progress.text,
+          progressCurrent: task.objective.progress.current,
+          progressTarget: task.objective.progress.target
+        }
+        tasksParsed.push(taskParsed);
+      }
+      
+      return (<ToonLayout name={toonName} tasks={tasksParsed}/>);
+    });
+    
+    console.log(toons)
+    return (<div> {toons} </div>);
 }
