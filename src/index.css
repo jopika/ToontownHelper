@@ -10,6 +10,53 @@ h1 {
   font-family: "Impress BT";
 }
 
+button {
+  /* display: block; */
+  height: 30px;
+  /* margin-bottom: 10px; */
+  text-align: center;
+  /* line-height: 30px; */
+  width: 50px;
+  margin: 20px;
+  
+  color: #000000;
+  text-align: center;
+  border: solid #fee909 2px;
+  border-radius: 10px;
+  text-decoration: none;
+
+  /* Gradient */
+  background: #efd300;
+  background: -moz-linear-gradient(top,  #fff584 1%, #efd300 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#fff584), color-stop(100%,#efd300));
+  background: -webkit-linear-gradient(top,  #fff584 1%,#efd300 100%);
+  background: -o-linear-gradient(top,  #fff584 1%,#efd300 100%);
+  background: -ms-linear-gradient(top,  #fff584 1%,#efd300 100%);
+  background: linear-gradient(to bottom,  #fff584 1%,#efd300 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff584', endColorstr='#efd300',GradientType=0 );
+
+  /* text-shadow: 1px 1px 0 rgba(0,0,0,0.25); */
+  box-shadow: 3px 3px 6px rgba(142, 127, 127, 0.3);
+
+  font-family: "Impress BT";
+  
+}
+
+button:hover {
+  border: solid #5790f9 2px;
+  background: #97d3f9;
+  background: -moz-linear-gradient(top,  #97d3f9 1%, #0da2ff 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#97d3f9), color-stop(100%,#0da2ff));
+  background: -webkit-linear-gradient(top,  #97d3f9 1%,#0da2ff 100%);
+  background: -o-linear-gradient(top,  #97d3f9 1%,#0da2ff 100%);
+  background: -ms-linear-gradient(top,  #97d3f9 1%,#0da2ff 100%);
+  background: linear-gradient(to bottom,  #97d3f9 1%,#0da2ff 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff584', endColorstr='#efd300',GradientType=0 );
+
+  text-decoration: none;
+  
+}
+
 .toonInfo {
   border: 1px solid rgb(226, 182, 20);
   /* margin: 1rem; */
