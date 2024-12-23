@@ -47,8 +47,8 @@ body {
   display: inline-block;;
   vertical-align: middle;
   background-image: url("../assets/scroll_reg.png");
-  width:300px;
-  height:220px;
+  width:296px;
+  height:240px;
   background-size: contain;
   background-repeat: no-repeat;
   font-family: 'Impress BT';
@@ -95,7 +95,7 @@ body {
 
 .goal {
   position: absolute;
-  top: 40%;
+  top: 37%;
   transform: translateY(-50%);
   text-align: center;
   width: 100%;
