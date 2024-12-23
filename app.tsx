@@ -4,6 +4,7 @@ import ToonLayout from './ToonLayout';
 import { InfoResponse, TaskData, TaskObjective } from './src/types/InfoResponse';
 import { ToontownConnector } from './src/adapters/ToontownConnector';
 import { useEffect, useState } from 'react';
+import {TaskHubConnector} from "./src/adapters/TaskHubConnector";
 
 
 export type TaskProps = {taskType: string, text: string, where: string, progressText: string, progressCurrent: number, progressTarget: number, reward: string}

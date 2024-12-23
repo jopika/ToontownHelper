@@ -40,10 +40,13 @@ console.log("test test in Renderer");
 // function setupDataRetrieval() {
 //     function retrieveToonData() {
 //         toonTownConnector.getToonData().then((data) => {
-//             console.log(`Current location: ${data.location.zone} @ ${data.location.neighborhood} in ${data.location.district}`);
+//             if (data == null || data.location == undefined) {
+//                 console.log(`Null data! ${data}`);
+//             } else {
+//                 console.log(`Current location: ${data.location.zone} @ ${data.location.neighborhood} in ${data.location.district}`);
+//             }
 //         });
 //     }
-
 //     setInterval(retrieveToonData, 10000);
 // }
 
