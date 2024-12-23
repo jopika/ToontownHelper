@@ -2,7 +2,7 @@
   "name": "toontownhelper",
   "productName": "ToontownHelper",
   "version": "1.2.1",
-  "description": "My Electron application description",
+  "description": "Toontown Helper for tasks syncing across groups",
   "main": ".vite/build/main.js",
   "scripts": {
     "start": "electron-forge start",

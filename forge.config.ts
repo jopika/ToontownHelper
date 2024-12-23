@@ -6,13 +6,16 @@ import { MakerRpm } from '@electron-forge/maker-rpm';
 import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import {ForgePackagerOptions} from "@electron-forge/shared-types/src";
+
+const packagingConfiguration: ForgePackagerOptions = {
+  executableName: "ToontownHelper",
+  asar: true,
+};
 
 const config: ForgeConfig = {
-  packagerConfig: {
-    executableName: "ToontownHelper",
-    asar: true,
-  },
-  buildIdentifier: 'ToontownHelper-build', //https://it-jm.tistory.com/187
+  packagerConfig: packagingConfiguration,
+  buildIdentifier: 'ToontownHelper-build', // https://it-jm.tistory.com/187
   rebuildConfig: {},
   makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [
