@@ -87,7 +87,7 @@ export default function App() {
     }, []);
 
 
-    let toons = dataUp.map(info => {
+    let toons = dataUp.filter(p => p != undefined).map(info => {
       let toonName = info.toon.name;
       let tasks: TaskData[] = info.tasks;
   
@@ -123,6 +123,11 @@ export default function App() {
           location = [task.to.building, task.to.neighborhood,  task.to.zone];
         }
 
+        if (taskType == "DELIVER") {
+          newText += "to" + task.to.name;
+          location = [task.to.building, task.to.neighborhood,  task.to.zone];
+        }
+
         let taskParsed: TaskProps = {
           taskType: taskType,
           text: newText,
@@ -140,9 +145,13 @@ export default function App() {
     
     console.log(toons)
 
-    return (<div>
-      <p>Please enter your session id: <input id="session" type="text"/><button onClick={buttonOnClick}>Join!</button></p>
-      <p></p>
-      <div>{toons}</div>
-      </div>);
+    let success = (<div>
+    <p>Please enter your session id: <input id="session" type="text"/><button onClick={buttonOnClick}>Join!</button></p>
+    <p></p>
+    <div>{toons}</div>
+    </div>);
+
+    let failure = (<div id="pleaseopen">No toons detected! Please connect to Toontown first. Make sure to allow Companion App Support in Options, then accept the connection.</div>)
+
+    return toons.length > 0 ? success : failure;
 }
