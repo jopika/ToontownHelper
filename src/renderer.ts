@@ -26,6 +26,7 @@
  * ```
  */
 
+import '../app';
 import './index.css';
 import {ToonTownConnector} from "./adapters/ToonTownConnector";
 
