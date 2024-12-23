@@ -3,8 +3,9 @@ import Task from './TaskBox';
 import ToonLayout from './ToonLayout';
 import { InfoResponse, TaskData, TaskObjective } from './src/types/InfoResponse';
 import { ToontownConnector } from './src/adapters/ToontownConnector';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { TaskHubConnector } from "./src/adapters/TaskHubConnector";
+import { session } from 'electron';
 
 
 export type TaskProps = {taskType: string, text: string, where: string, progressText: string, progressCurrent: number, progressTarget: number, reward: string}
@@ -28,7 +29,11 @@ export default function App() {
     let data: InfoResponse[] = [];
     let [dataUp, setDataUp] = useState(data);
     let _sessionId: string = '';
-    let [sessionId, setSessionId] = useState(_sessionId);
+    const [sessionId, setSessionId] = useState(_sessionId);
+  
+    useEffect(() => {
+      console.log(sessionId, '- Has changed')
+  },[sessionId])
 
     let retrieveToonData = (sid?: string) => {
       toonTownConnector.getToonData().then((response) => {
@@ -52,19 +57,28 @@ export default function App() {
         }
       })
     }
+
+    // dumb capturing workaround: https://stackoverflow.com/questions/55066697/react-hooks-functions-have-old-version-of-a-state-var
+    let toonUpdateRef = useRef(retrieveToonData);
+    toonUpdateRef.current = retrieveToonData;
     
+    useEffect(()=>{
+      toonUpdateRef.current = retrieveToonData;
+    });
+
+
     let buttonOnClick = () => {
       let sid = (document.getElementById("session") as HTMLInputElement).value;
-      setSessionId(s => sid.trim());
+      setSessionId(sid.trim());
       console.log(sid);
       console.log(sessionId);
-      retrieveToonData(sid);
+      toonUpdateRef.current(sid);
     }
 
     useEffect(() => {
-      const interval = setInterval(retrieveToonData, 10000);
+      const interval = setInterval(() => toonUpdateRef.current(), 10000);
 
-      retrieveToonData();
+      toonUpdateRef.current();
       
       return () => {
         clearInterval(interval);
@@ -113,6 +127,7 @@ export default function App() {
 
     return (<div>
       <p>Please enter your session id: <input id="session" type="text"/><button onClick={buttonOnClick}>Join!</button></p>
+      {sessionId}
       <p></p>
       <div>{toons}</div>
       </div>);
