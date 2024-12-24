@@ -25,8 +25,6 @@ export class ToontownConnector {
     }
 
     public startConnection() {
-        console.log("In method here");
-
         this.getToonData().then((data) => {
             console.log(data);
         });
