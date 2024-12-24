@@ -35,7 +35,7 @@ export default function Task(props: TaskProps) {
             <div className="type">{taskType}</div>
             <div className="icon"></div>
             <div className="goal">{text}</div>
-            <div className="where">{wheres}</div>
+            <div className={taskType == "VISIT" ? "where visitwhere" : "where"}>{wheres}</div>
             {progressTarget != undefined && taskType != "COMPLETE" &&            
             <div className="progress">
             <span className="progressText">{progressCurrent} of {progressTarget}</span>

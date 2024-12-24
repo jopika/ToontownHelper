@@ -215,6 +215,10 @@ button:hover {
   margin: auto;
 }
 
+.visitwhere {
+  top: 57%;
+}
+
 .where div {
   line-height: .9;
 }
