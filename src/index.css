@@ -112,6 +112,12 @@ button:hover {
 }
 */
 
+.taskBox {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 .taskBoxBg {
   /* position: fixed; 
   left: 0;
@@ -140,7 +146,7 @@ button:hover {
 
 .taskBoxContent {
   pointer-events:auto;
-  display: inline-block;;
+  display: inline-block;
   vertical-align: middle;
   font-family: 'Impress BT';
   position: relative;

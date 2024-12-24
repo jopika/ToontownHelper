@@ -26,7 +26,7 @@ export default function Task(props: TaskProps) {
 
     return (
         <div key={text + where}
-        className="taskbox"
+        className="taskBox"
         >
             <div className="taskBoxContent"
         onMouseEnter={toggleHover}
