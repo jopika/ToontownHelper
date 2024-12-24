@@ -1,11 +1,9 @@
-import { createRoot } from 'react-dom/client';
-import Task from './TaskBox';
+import {createRoot} from 'react-dom/client';
 import ToonLayout from './ToonLayout';
-import { InfoResponse, TaskData, TaskObjective } from './src/types/InfoResponse';
-import { ToontownConnector } from './src/adapters/ToontownConnector';
-import { useEffect, useRef, useState } from 'react';
-import { TaskHubConnector } from "./src/adapters/TaskHubConnector";
-import { session } from 'electron';
+import {InfoResponse, TaskData} from './src/types/InfoResponse';
+import {ToontownConnector} from './src/adapters/ToontownConnector';
+import {useEffect, useRef, useState} from 'react';
+import {TaskHubConnector} from "./src/adapters/TaskHubConnector";
 import VersionBanner from "./src/components/VersionBanner";
 
 
@@ -146,7 +144,7 @@ export default function App() {
       return (<ToonLayout key={info.toon.id} name={toonName} colour={info.toon.headColor} tasks={tasksParsed}/>);
     });
 
-    console.log(toons)
+    // console.log(toons)
 
     let success = (<div>
     <p>Please enter your session id: <input id="session" type="text"/><button onClick={buttonOnClick}>Join!</button></p>
