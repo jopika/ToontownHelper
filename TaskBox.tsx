@@ -24,6 +24,8 @@ export default function Task(props: TaskProps) {
 
     let green = taskType == "COMPLETE" ? " green" : "";
 
+    let lowerLocation = taskType == "VISIT" || taskType == "COMPLETE" || taskType == "DELIVER";
+
     return (
         <div key={text + where}
         className="taskBox"
@@ -35,7 +37,7 @@ export default function Task(props: TaskProps) {
             <div className="type">{taskType}</div>
             <div className="icon"></div>
             <div className="goal">{text}</div>
-            <div className={taskType == "VISIT" || taskType == "COMPLETE"? "where locationonly" : "where"}>{wheres}</div>
+            <div className={lowerLocation ? "where locationonly" : "where"}>{wheres}</div>
             {progressTarget != undefined && taskType != "COMPLETE" &&            
             <div className="progress">
             <span className="progressText">{progressCurrent} of {progressTarget}</span>
