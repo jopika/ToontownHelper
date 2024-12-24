@@ -100,24 +100,61 @@ button:hover {
   src: local('vtRemingtonPortal'), url('../assets/vtRemingtonPortable.ttf') format('truetype');
   }
 
-.taskbox {
-  display: inline-block;;
-  vertical-align: middle;
+
+/* .taskboxBg {
   background-image: url("../assets/scroll_reg.png");
   width:296px;
   height:240px;
   background-size: contain;
   background-repeat: no-repeat;
+  &:hover {
+    background-image: url("../assets/scroll_long.png");
+}
+*/
+
+.taskBoxBg {
+  /* position: fixed; 
+  left: 0;
+  right: 0;
+  z-index: 1; */
+  /* display: block; */
+  background-image: url("../assets/scroll_reg.png");
+  width:296px;
+  height:240px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  
+  /* &:hover {
+    background-image: url("../assets/scroll_long.png")
+  } */
+}
+
+.taskBoxBgLong {
+  width:296px;
+  height:240px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../assets/scroll_long.png")
+  
+}
+
+.taskBoxContent {
+  pointer-events:auto;
+  display: inline-block;;
+  vertical-align: middle;
   font-family: 'Impress BT';
   position: relative;
   text-align:center;
   text-align: center;
-
+  width:296px;
+  height:240px;
   
-  &:hover {
-    background-image: url("../assets/scroll_long.png");
-  /* transform: scale(1.5); */
-}
+  /* position: fixed;
+  left: 0;
+  right: 0; */
+  z-index: 9999;
+  /* margin-left: 20px;
+  margin-right: 20px; */
 }
 
 .green {

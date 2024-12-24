@@ -22,13 +22,16 @@ export default function Task(props: TaskProps) {
 
     let wheres = where.map(w => (<div key={w}>{w}</div>))
 
+    let green = taskType == "COMPLETE" ? " green" : "";
 
     return (
         <div key={text + where}
-        className={taskType == "COMPLETE" ? "taskbox green" : "taskbox"}
-        
+        className="taskbox"
+        >
+            <div className="taskBoxContent"
         onMouseEnter={toggleHover}
         onMouseLeave={toggleHover}>
+            <div className={hovered ? `taskBoxBgLong ${green}` : `taskBoxBg ${green}`}></div>
             <div className="type">{taskType}</div>
             <div className="icon"></div>
             <div className="goal">{text}</div>
@@ -39,6 +42,7 @@ export default function Task(props: TaskProps) {
             <progress value={progressCurrent} max={progressTarget}></progress>
             </div>}
             <div className="reward" style={{visibility:`${hovered ? "visible" : "hidden"}`}}>Reward: {reward}</div>
+            </div>
         </div>
 
     //       style={{
