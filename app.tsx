@@ -125,6 +125,12 @@ export default function App() {
           location = [task.to.building, task.to.neighborhood,  task.to.zone];
         }
 
+        if (task.objective.progress.text == "Complete") {
+          newText += " return to " + task.to.name;
+          location = [task.to.building, task.to.neighborhood,  task.to.zone];
+          taskType = "COMPLETE"
+        }
+
         let taskParsed: TaskProps = {
           taskType: taskType,
           text: newText,

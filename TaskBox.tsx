@@ -14,18 +14,26 @@ export default function Task(props: TaskProps) {
     const [hovered, setHovered] = useState(false);
     const toggleHover = () => setHovered(!hovered);
  
+    // let wheres = where.map((w,i) => (
+    //     <>
+    //         <span key={w}>{w}</span>
+    //         {i != where.length -1 && <br />}
+    //         </>));
+
     let wheres = where.map(w => (<div key={w}>{w}</div>))
+
 
     return (
         <div key={text + where}
-        className="taskbox" 
+        className={taskType == "COMPLETE" ? "taskbox green" : "taskbox"}
+        
         onMouseEnter={toggleHover}
         onMouseLeave={toggleHover}>
             <div className="type">{taskType}</div>
             <div className="icon"></div>
             <div className="goal">{text}</div>
             <div className="where">{wheres}</div>
-            {progressTarget != undefined &&            
+            {progressTarget != undefined && taskType != "COMPLETE" &&            
             <div className="progress">
             <span className="progressText">{progressCurrent} of {progressTarget}</span>
             <progress value={progressCurrent} max={progressTarget}></progress>
