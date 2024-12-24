@@ -121,7 +121,7 @@ export default function App() {
         }
 
         if (taskType == "DELIVER") {
-          newText += "to" + task.to.name;
+          newText += " to " + task.to.name;
           location = [task.to.building, task.to.neighborhood,  task.to.zone];
         }
 
