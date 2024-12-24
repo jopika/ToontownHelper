@@ -161,7 +161,7 @@ button:hover {
 
 .where {
   position: absolute;
-  top: 55%;
+  top: 51%;
   transform: translateY(-50%);
   text-align: center;
    width: 100%;
@@ -198,7 +198,7 @@ progress[value]::-webkit-progress-bar {
 
 
 progress[value]::-webkit-progress-value {
-  background-color: green;
+  background-color: rgb(128, 179, 128);
     border-radius: 2px; 
     background-size: 35px 20px, 100% 100%, 100% 100%;
   box-shadow: rgb(104, 101, 89) 1.6px 1.6px 2px 0px inset, rgb(255, 255, 255) 0px -1.6px 2px 0px inset;
