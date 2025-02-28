@@ -33,25 +33,48 @@ export default function App() {
       console.log(sessionId, '- Has changed')
   },[sessionId])
 
-    let retrieveToonData = (sid?: string) => {
-      toonTownConnector.getToonData().then((response) => {
-        // TODO - is this the right way to update...?
-        // then, join room
+    const retrieveToonData = (sid?: string) => {
+      toonTownConnector.getAllToonData().then(response => {
+        // sanity check, make sure sessionId is defined
+        let sessionIdentifier: string | null = null;
         if (sessionId != undefined && sessionId != "") {
-          taskHubConnector.joinRoom(sessionId, response).then(data => {
-            let otherInfoResponses = data.map(d => d.metadata);
-            setDataUp([response, ...otherInfoResponses]);
-          });
-          // we can also fall back on sid
+          sessionIdentifier = sessionId;
+          // fallback to sids
         } else if (sid != undefined && sid != "") {
-          taskHubConnector.joinRoom(sid, response).then(data => {
-            let otherInfoResponses = data.map(d => d.metadata);
-            setDataUp([response, ...otherInfoResponses]);
+          sessionIdentifier = sid;
+        }
+
+        // If there is a session connected
+        if (sessionIdentifier != null) {
+          taskHubConnector.joinRoomWithMany(sessionId, response).then(data => {
+            const otherInfoResponses = data.map(d => d.metadata);
+            setDataUp([...response.sort((a, b) => a.toon.id.localeCompare(b.toon.id)), ...otherInfoResponses]);
           });
         } else {
-          setDataUp([response]);
+          // no session, just display local
+          setDataUp(response.sort((a, b) => a.toon.id.localeCompare(b.toon.id)));
         }
-      })
+
+      });
+
+      // toonTownConnector.getToonData().then((response) => {
+      //   // TODO - is this the right way to update...?
+      //   // then, join room
+      //   if (sessionId != undefined && sessionId != "") {
+      //     taskHubConnector.joinRoom(sessionId, response).then(data => {
+      //       const otherInfoResponses = data.map(d => d.metadata);
+      //       setDataUp([response, ...otherInfoResponses]);
+      //     });
+      //     // we can also fall back on sid
+      //   } else if (sid != undefined && sid != "") {
+      //     taskHubConnector.joinRoom(sid, response).then(data => {
+      //       const otherInfoResponses = data.map(d => d.metadata);
+      //       setDataUp([response, ...otherInfoResponses]);
+      //     });
+      //   } else {
+      //     setDataUp([response]);
+      //   }
+      // });
     }
 
     // dumb capturing workaround: https://stackoverflow.com/questions/55066697/react-hooks-functions-have-old-version-of-a-state-var

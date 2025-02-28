@@ -1,7 +1,7 @@
 {
   "name": "toontownhelper",
   "productName": "ToontownHelper",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Toontown Helper for tasks syncing across groups",
   "main": ".vite/build/main.js",
   "scripts": {

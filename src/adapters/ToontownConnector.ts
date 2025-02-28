@@ -30,22 +30,44 @@ export class ToontownConnector {
         });
     }
 
-    public async getToonData(): Promise<InfoResponse> {
+    public async getAllToonData(): Promise<InfoResponse[]> {
+        const responseHolder: Promise<InfoResponse>[] = [];
+
+        for (let portNumber = this.PORT_RANGE_START; portNumber <= this.PORT_RANGE_END; portNumber += 1) {
+            responseHolder.push(this.getToonData(portNumber));
+        }
+
+        const resolvedPromises: InfoResponse[] = [];
+        responseHolder.forEach(responsePromise => {
+            responsePromise.then((response) => {
+                resolvedPromises.push(response);
+            }).catch(error => {
+                console.log(error);
+            });
+        });
+
+        await Promise.allSettled(responseHolder);
+
+        return resolvedPromises;
+    }
+
+    public async getToonData(port: number = this.PORT_RANGE_START): Promise<InfoResponse> {
         const requestHeaders = new Headers();
         requestHeaders.set('Accept', 'application/json');
         requestHeaders.append('Content-Type', 'application/json');
-        requestHeaders.append('Host', `${this.HOST_STRING_START}${this.PORT_RANGE_START}`);
+        requestHeaders.append('Host', `${this.HOST_STRING_START}${port}`);
         requestHeaders.append('User-Agent', `${this.USER_AGENT}`);
         requestHeaders.append('Authorization', `Basic ${this.AUTH_STRING_START}`);
         requestHeaders.append('Origin', `${this.USER_AGENT}`);
 
-        return await fetch(`${this.HOST_STRING_START}${this.PORT_RANGE_START}/info.json`, {
+        return await fetch(`${this.HOST_STRING_START}${port}/info.json`, {
             headers: requestHeaders,
             mode: "cors",
         }).then(response => {
             return response.json();
         }).catch(error => {
-            console.error(error);
+            // console.error(error);
+            throw new Error(`Unable to get info: ${error} for ${port}`);
         }).finally(() => {
             // console.log("Complete");
         });
