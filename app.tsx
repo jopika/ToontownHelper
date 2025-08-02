@@ -1,8 +1,8 @@
 import { createRoot } from 'react-dom/client';
 import ToonLayout from './ToonLayout';
-import VersionBanner from "./src/components/VersionBanner";
-import { useToonData } from 'src/hooks/useToonData';
-import { parseTasks } from 'src/utils/taskParser';
+import { useToonData } from './src/hooks/useToonData';
+import { parseTasks } from './src/utils/taskParser';
+import VersionBanner from './src/components/VersionBanner';
 
 const domNode = document.getElementById('display');
 const root = createRoot(domNode);
