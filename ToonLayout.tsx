@@ -1,4 +1,4 @@
-import { TaskProps } from "app";
+import { TaskProps } from "./src/types/TaskProps";
 import Task from "./TaskBox";
 
 

@@ -11,9 +11,9 @@ export type TaskProps = {
     /** The text describing the current progress (e.g., "5/10 Cogs"). */
     progressText: string;
     /** The current progress value. */
-    progressCurrent: number;
+    progressCurrent: number | undefined;
     /** The target progress value. */
-    progressTarget: number;
+    progressTarget: number | undefined;
     /** The reward for completing the task. */
     reward: string;
 };

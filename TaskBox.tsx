@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TaskProps } from "./app";
+import { TaskProps } from "./src/types/TaskProps";
 
 export default function Task(props: TaskProps) {
     let { taskType, 

@@ -11,6 +11,16 @@ import {ForgePackagerOptions} from "@electron-forge/shared-types/src";
 const packagingConfiguration: ForgePackagerOptions = {
   executableName: "toontownhelper",
   asar: true,
+  ignore: (file) => {
+    if (!file) {
+      return false;
+    }
+
+    // Keep parity with @electron-forge/plugin-vite's default packaging rule:
+    // only ship Vite build output. This prevents tests, fixtures, configs,
+    // source files, and dev-only node_modules from entering release artifacts.
+    return !file.startsWith('/.vite');
+  },
 };
 
 const config: ForgeConfig = {
