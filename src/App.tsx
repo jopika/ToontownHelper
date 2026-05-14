@@ -1,4 +1,4 @@
-import ToonLayout from '../ToonLayout';
+import ToonLayout from './ToonLayout';
 import { useToonData } from './hooks/useToonData';
 import { parseTasks } from './utils/TaskParser';
 import VersionBanner from './components/VersionBanner';

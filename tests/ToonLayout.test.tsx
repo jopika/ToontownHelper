@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import ToonLayout from '../ToonLayout';
+import ToonLayout from '../src/ToonLayout';
 
 describe('ToonLayout', () => {
   it('renders the toon name, background color, and all tasks', () => {

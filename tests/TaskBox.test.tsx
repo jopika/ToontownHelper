@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
-import Task from '../TaskBox';
+import Task from '../src/TaskBox';
 import { TaskProps } from '../src/types/TaskProps';
 
 const baseTask: TaskProps = {

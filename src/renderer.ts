@@ -26,7 +26,7 @@
  * ```
  */
 
-import '../app';
+import './mount';
 import './index.css';
 import {ToontownConnector} from "./adapters/ToontownConnector";
 

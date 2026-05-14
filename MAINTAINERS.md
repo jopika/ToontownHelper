@@ -10,7 +10,7 @@ Important areas:
 
 - `src/main.ts`: Electron main process, BrowserWindow setup, auto-update wiring, and development DevTools behavior.
 - `src/renderer.ts`: renderer entry point loaded by Vite.
-- `app.tsx`, `ToonLayout.tsx`, `TaskBox.tsx`: React UI composition.
+- `src/mount.tsx`, `src/App.tsx`, `src/ToonLayout.tsx`, `src/TaskBox.tsx`: React UI composition.
 - `src/hooks/useToonData.ts`: polling and room synchronization state.
 - `src/adapters/ToontownConnector.ts`: local Companion App fetches.
 - `src/adapters/TaskHubConnector.ts`: remote Task Hub API calls.
